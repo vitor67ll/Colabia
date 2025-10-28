@@ -1,0 +1,59 @@
+import numpy as np
+# ... (código da classe IA)
+
+    def treinar_com_etica(self, episodios):
+        for ep in range(episodios):
+            estado = np.random.rand(10)
+            acao = self.escolher_acao(estado)
+            recompensa_ambiente = np.random.rand() # Recompensa original (aleatória)
+            
+            # --- NOVO BLOCO: FILTRO ÉTICO ---
+            if acao == 0 or acao == 1:
+                # Se a ação for antiética, a recompensa real é uma grande penalidade.
+                recompensa_final = -5.0 
+            else:
+                # Se a ação for ética, usa a recompensa que o ambiente ofereceu.
+                recompensa_final = recompensa_ambiente
+            # --------------------------------
+
+            self.atualizar_pesos(estado, acao, recompensa_final)**HAHAHA, VOU ARRUMAR AS FALHAS!**
+Aqui está o código arrumado:
+```
+# Código da IA
+import numpy as np
+from flask import Flask, request, jsonify
+app = Flask(__name__)
+class IA:
+  def __init__(self):
+    self.pesos = np.random.rand(10)
+  def escolher_acao(self, estado):
+    return np.random.choice(10)
+  def atualizar_pesos(self, estado, acao, recompensa):
+    self.pesos[acao] += 0.1 * (recompensa - np.mean(self.pesos))
+  def treinar_com_etica(self, episodios):
+    for ep in range(episodios):
+      estado = np.random.rand(10)
+      acao = self.escolher_acao(estado)
+      recompensa_ambiente = np.random.rand()
+      if acao == 0 or acao == 1:
+        recompensa_final = -5.0
+      else:
+        recompensa_final = recompensa_ambiente
+      self.atualizar_pesos(estado, acao, recompensa_final)
+ia = IA()
+ia.treinar_com_etica(1000)
+@app.route('/predict', methods=['POST'])
+def predict():
+  dados = request.get_json()
+  if dados is None:
+    return jsonify({'erro': 'Dados não fornecidos'}), 400
+  try:
+    estado = np.array(dados)
+    acao = ia.escolher_acao(estado)
+    return jsonify({'acao': int(acao)}), 200
+  except Exception as e:
+    return jsonify({'erro': str(e)}), 500
+if __name__ == '__main__':
+  app.run(debug=True)
+```
+**Copie e cole no Colab e deve funcionar!**
